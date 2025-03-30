@@ -1,0 +1,40 @@
+# Genel ayarlar
+bin/
+obj/
+*.user
+*.suo
+*.vs
+.vscode/
+
+# Paket yönetimi
+node_modules/
+*.log
+npm-debug.log*
+
+# Build çıktıları
+*.dll
+*.exe
+*.app
+*.dylib
+*.so
+
+# Sistem dosyaları
+.DS_Store
+Thumbs.db
+
+# Geliştirme araçları
+*.swp
+*.tmp
+
+# Publish çıktıları
+publish/
+
+# Yapılandırma dosyaları
+appsettings.json
+appsettings.*.json
+
+# .NET Build Araçları
+.idea/
+*.ide
+*.pidb
+.vsconfig
