@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using WebApi.DBOperations;
+using WebApi.Middlewares;
 
 namespace WebApi
 {
@@ -51,6 +52,7 @@ namespace WebApi
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseCustomExceptionMiddle(); //endpointlere düşmeden önce pipelaine doğru noktadan middleware eklendi
 
             app.UseEndpoints(endpoints =>
             {
