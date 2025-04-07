@@ -1,6 +1,3 @@
-
-using System;
-using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using FluentValidation;
 using FluentValidation.Results;

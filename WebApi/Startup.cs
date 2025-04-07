@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using WebApi.DBOperations;
 using WebApi.Middlewares;
+using WebApi.Services;
 
 namespace WebApi
 {
@@ -33,7 +34,13 @@ namespace WebApi
             //  6-Startup.cs içerisinde ConfigureServices() içerisinde DbContext'in servis olarak eklenmesi
 
             services.AddDbContext<BookStoreDbContext>(options => options.UseInMemoryDatabase("BookStore"));
+
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            //ConsoleLogger sınıfı ILoggerService interface'ini implement ettiği için burada kullanılabilir
+            services.AddSingleton<ILoggerService, ConsoleLogger>();
+
+            //services.AddSingleton<ILoggerService, DbLogger>();
         }
 
 

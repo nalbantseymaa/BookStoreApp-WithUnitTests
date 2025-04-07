@@ -2,6 +2,7 @@ using WebApi.DBOperations;
 using System.Linq;
 using System;
 using AutoMapper;
+using WebApi.Entities;
 
 namespace WebApi.BookOperations.Command
 {
