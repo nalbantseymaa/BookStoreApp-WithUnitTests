@@ -46,7 +46,7 @@ namespace Application.BookOperations.Command
             _context.SaveChanges();
 
             CreateBookCommand command = new CreateBookCommand(_context, _mapper);
-            command.Model = new CreateBookCommand.CreateBookModel
+            command.Model = new CreateBookModel
             {
                 Title = book.Title, // Aynı başlığa sahip model set edilir
             };
@@ -86,11 +86,35 @@ namespace Application.BookOperations.Command
             // Assert – Kitap gerçekten veritabanına eklendi mi kontrol edilir
             var book = _context.Books.SingleOrDefault(b => b.Title == model.Title);
 
-            book.Should().NotBeNull();                      // Kitap var mı
-            book.GenreId.Should().Be(model.GenreId);        // Tür doğru mu
-            book.AuthorId.Should().Be(model.AuthorId);      // Yazar doğru mu
-            book.PageCount.Should().Be(model.PageCount);    // Sayfa sayısı doğru mu
-            book.PublishDate.Should().Be(model.PublishDate);// Yayın tarihi doğru mu
+            book.Should().NotBeNull();
+            book.GenreId.Should().Be(model.GenreId);
+            book.AuthorId.Should().Be(model.AuthorId);
+            book.PageCount.Should().Be(model.PageCount);
+            book.PublishDate.Should().Be(model.PublishDate);
         }
+
+        // ❗ Test 3: Geçersiz bir yazar ID'si verildiğinde, InvalidOperationException fırlatılmalı.
+        // EN: This test ensures that an invalid author ID throws an exception.
+        [Fact]
+        public void WhenInvalidAuthorIdIsGiven_InvalidOperationException_ShouldBeReturn()
+        {
+            // Arrange – Komut ve model hazırlanır
+            CreateBookCommand command = new CreateBookCommand(_context, _mapper);
+            //Hmm, this book doesn't exist, let's continue..." "Let's also look at the author..."
+            command.Model = new CreateBookModel()
+            {
+                Title = "Invalid Author Book", // benzersiz bir başlık ver
+                AuthorId = 999 // geçersiz yazar
+            }; // Geçersiz yazar ID'si 
+
+            // Act & Assert – Hata fırlatılıp fırlatılmadığı kontrol edilir
+            // “At whatever point I want the code to explode, I don’t want it to get stuck before.” “Oh, there’s no author — so BOOM! I throw an InvalidOperationException.”
+            FluentActions.Invoking(() => command.Handle())
+                         .Should()
+                         .Throw<InvalidOperationException>()
+                         .And.Message
+                         .Should().Be("Yazar mevcut olmadığından kitap eklenemez.");
+        }
+
     }
 }

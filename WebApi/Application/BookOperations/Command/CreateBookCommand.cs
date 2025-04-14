@@ -37,7 +37,6 @@ namespace WebApi.BookOperations.Command
 
             _dbContext.Books.Add(book);
             _dbContext.SaveChanges();
-
         }
 
         public class CreateBookModel

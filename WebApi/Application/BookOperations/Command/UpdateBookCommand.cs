@@ -17,7 +17,6 @@ namespace WebApi.BookOperations.Command
 
         public void Handle()
         {
-
             var book = _dbContext.Books.SingleOrDefault(x => x.Id == BookId);
             if (book is null)
             {
@@ -36,17 +35,11 @@ namespace WebApi.BookOperations.Command
                 throw new InvalidOperationException("Güncellenecek tür bilgisi mevcut değil.");
             }
 
-
             book.Title = !string.IsNullOrWhiteSpace(Model.Title) ? Model.Title : book.Title;
-
             book.GenreId = Model.GenreId ?? book.GenreId;
-
             book.PageCount = (int)(Model.PageCount > 0 ? Model.PageCount : book.PageCount);
-
             book.PublishDate = Model.PublishDate ?? book.PublishDate;
-
             book.AuthorId = Model.AuthorId ?? book.AuthorId;
-
 
             _dbContext.SaveChanges();
         }
@@ -55,7 +48,6 @@ namespace WebApi.BookOperations.Command
         {
             public string? Title { get; set; }
             public int? GenreId { get; set; }
-
             public int? PageCount { get; set; }
             public DateTime? PublishDate { get; set; } // Nullable DateTime
             public int? AuthorId { get; set; }

@@ -9,85 +9,73 @@ namespace Application.BookOperations.Command
 
     public class CreateBookCommandValidatorTests : IClassFixture<CommonTestFixture>
     {
-        //bir test metohudunun birden fazla veri için/birden fazla kez çalıştırılmasını sağlamak için kullanılır.theory kullanılır.
-        //değişen veriye göre test yazmamak için 
-        [Theory]
-        [InlineData("Lord of the rings", 0, 0)]
-        [InlineData("Lord of the rings", 0, 1)]
-        [InlineData("Lord of the rings", 100, 0)]
-        [InlineData("", 0, 0)]
-        [InlineData("", 100, 1)]
-        [InlineData("", 0, 1)]
-        [InlineData("Lord", 0, 1)]
-        [InlineData("Lord", 100, 0)]
+        // Bir test metodunun farklı veri setleriyle tekrar tekrar çalıştırılmasını sağlamak için [Theory] ve [InlineData] kullanılır.
+        // Bu test, geçersiz girişler verildiğinde validatordan hata dönmesini bekler.
 
-        public void WhenInvalidInputsAreGiven_Validator_ShouldBeReturnErrors(string title, int genreId, int pageCount)
+        [Theory]
+        [InlineData("", 0, 0, 0)]
+        [InlineData("A", 1, 1, 1)]
+        [InlineData("Valid Title", 0, 1, 100)]
+        [InlineData("Valid Title", 1, 0, 100)]
+        [InlineData("Valid Title", 1, 1, 0)]
+        public void WhenInvalidInputsAreGiven_Validator_ShouldReturnErrors(string title, int genreId, int authorId, int pageCount)
         {
-            // Arrange
-            CreateBookCommand command = new CreateBookCommand(null, null);
+            var command = new CreateBookCommand(null, null);
             command.Model = new CreateBookModel()
             {
                 Title = title,
                 GenreId = genreId,
+                AuthorId = authorId,
                 PageCount = pageCount,
-                PublishDate = DateTime.Now.Date.AddDays(-1),
+                PublishDate = DateTime.Now.Date.AddDays(-1), // geçmiş bir tarih veriliyor
             };
 
-            // Act
-            CreateBookCommandValidator validator = new CreateBookCommandValidator();
+            var validator = new CreateBookCommandValidator();
             var result = validator.Validate(command);
 
-            // Assert
-            result.Errors.Count.Should().BeGreaterThan(0);
+            result.Errors.Count.Should().BeGreaterThan(0); // en az bir hata bekleniyor
         }
 
-        //datetime için datetime.now gibi tanımlama yapamayaız.bu her test sırasında bu casein değişbeliceği anlamına gelir.bu yüzden de testle doğru çalışamayabilir.
-        //datetime bugünde küçük olmalı
+        // PublishDate, bugünden küçük olmalı. DateTime.Now verildiğinde test her çalıştırıldığında farklı zamanlar oluşur ve hatalı sonuçlar dönebilir.
 
-        //bir test içiinde yanlnıza bir case cover edilmeli
         [Fact]
-        public void WhenDateTimeEqualNowIsGiven_Validator_ShouldBeReturnError()
+        public void WhenDateTimeEqualNowIsGiven_Validator_ShouldReturnError()
         {
-            // Arrange
-            CreateBookCommand command = new CreateBookCommand(null, null);
+            var command = new CreateBookCommand(null, null);
             command.Model = new CreateBookModel()
             {
                 Title = "Lord of the Rings",
                 GenreId = 1,
                 AuthorId = 2,
                 PageCount = 100,
-                PublishDate = DateTime.Now.Date,
+                PublishDate = DateTime.Now.Date, // bugünün tarihi
             };
 
-            // Act
-            CreateBookCommandValidator validator = new CreateBookCommandValidator();
+            var validator = new CreateBookCommandValidator();
             var result = validator.Validate(command);
 
-            // Assert-testCase
-            result.Errors.Count.Should().BeGreaterThan(0);
+            result.Errors.Count.Should().BeGreaterThan(0); // bugünün tarihi geçersiz kabul edilir
         }
 
-        //happypath-her koşulun doğru çalıştığı case
+        // Happy Path: Tüm değerler geçerli. Hiçbir validation hatası beklenmiyor.
+
         [Fact]
-        public void WhenValidInputsAreGiven_Validator_ShouldNotBeReturnError()
+        public void WhenValidInputsAreGiven_Validator_ShouldNotReturnError()
         {
-            // Arrange
-            CreateBookCommand command = new CreateBookCommand(null, null);
+            var command = new CreateBookCommand(null, null);
             command.Model = new CreateBookModel()
             {
                 Title = "Lord of the Rings",
                 GenreId = 1,
                 AuthorId = 2,
                 PageCount = 100,
-                PublishDate = DateTime.Now.Date.AddYears(-2),
+                PublishDate = DateTime.Now.Date.AddYears(-2), // 2 yıl öncesi
             };
 
-            // Act
-            CreateBookCommandValidator validator = new CreateBookCommandValidator();
+            var validator = new CreateBookCommandValidator();
             var result = validator.Validate(command);
 
-            // Assert-testCase
-            result.Errors.Count.Should().Be(0);
+            result.Errors.Count.Should().Be(0); // hata dönmemeli
         }
     }
 }

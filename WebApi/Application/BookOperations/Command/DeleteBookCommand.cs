@@ -18,11 +18,10 @@ namespace WebApi.BookOperations.Command
         {
             var book = _dbContext.Books.SingleOrDefault(x => x.Id == BookId);
             if (book == null)
-                throw new InvalidOperationException("Silincek kitap Bulunamadı.");
+                throw new InvalidOperationException("Silincek Kitap Bulunamadı.");
 
             _dbContext.Books.Remove(book);
             _dbContext.SaveChanges();
-
         }
     }
 }

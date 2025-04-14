@@ -36,7 +36,4 @@ namespace WebApi.BookOperations.Query
             return vm;
         }
     }
-
-
-
 }
