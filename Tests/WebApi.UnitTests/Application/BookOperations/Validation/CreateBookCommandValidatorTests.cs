@@ -13,27 +13,29 @@ namespace Application.BookOperations.Command
         // Bu test, geçersiz girişler verildiğinde validatordan hata dönmesini bekler.
 
         [Theory]
-        [InlineData("", 0, 0, 0)]
-        [InlineData("A", 1, 1, 1)]
-        [InlineData("Valid Title", 0, 1, 100)]
-        [InlineData("Valid Title", 1, 0, 100)]
-        [InlineData("Valid Title", 1, 1, 0)]
-        public void WhenInvalidInputsAreGiven_Validator_ShouldReturnErrors(string title, int genreId, int authorId, int pageCount)
+        [InlineData("", 1, 100, 1)]          // Title boş, hata bekleniyor
+        [InlineData("A", 1, 100, 1)]         // Title çok kısa (<4 karakter), hata bekleniyor
+        [InlineData("Abc", 1, 100, 1)]       // Title yine < 4 karakter, hata bekleniyor
+        [InlineData("Valid Title", 0, 100, 1)]   // GenreId 0, hata bekleniyor
+        [InlineData("Valid Title", 1, 100, 0)]   // AuthorId 0, hata bekleniyor
+        [InlineData("Valid Title", 1, 100, -1)]  // AuthorId negatif, hata bekleniyor
+        [InlineData("Valid Title", -1, 100, 1)]  // PageCount negatif, hata bekleniyor
+        [InlineData("Valid Title", 1, 0, 1)]     // PageCount 0, hata bekleniyor
+        [InlineData("Valid Title", 1, 100, 0)]   // AuthorId 0, hata bekleniyor
+        [InlineData("", 0, 0, 0)]               // Hepsi geçersiz, hata bekleniyor
+        public void WhenInvalidInputAreGiven_Validator_ShouldBeReturnErrors(string title, int genreId, int authorId, int pageCount)
         {
-            var command = new CreateBookCommand(null, null);
-            command.Model = new CreateBookModel()
-            {
-                Title = title,
-                GenreId = genreId,
-                AuthorId = authorId,
-                PageCount = pageCount,
-                PublishDate = DateTime.Now.Date.AddDays(-1), // geçmiş bir tarih veriliyor
-            };
+            //arrange
+            CreateBookCommand command = new CreateBookCommand(null!, null!);
+            command.Model = new CreateBookModel() { Title = title, PageCount = pageCount, PublishDate = DateTime.Now.Date.AddYears(-1), GenreId = genreId, AuthorId = authorId };
 
-            var validator = new CreateBookCommandValidator();
+            //act
+            CreateBookCommandValidator validator = new CreateBookCommandValidator();
             var result = validator.Validate(command);
 
-            result.Errors.Count.Should().BeGreaterThan(0); // en az bir hata bekleniyor
+            //assert
+            result.Errors.Count.Should().BeGreaterThan(0);
+
         }
 
         // PublishDate, bugünden küçük olmalı. DateTime.Now verildiğinde test her çalıştırıldığında farklı zamanlar oluşur ve hatalı sonuçlar dönebilir.

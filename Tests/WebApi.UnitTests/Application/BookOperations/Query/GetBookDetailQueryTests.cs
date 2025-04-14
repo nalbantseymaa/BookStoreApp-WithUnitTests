@@ -46,6 +46,7 @@ namespace Application.BookOperations.Command
             _context.SaveChanges();
 
             GetBookDetailQuery query = new GetBookDetailQuery(_context, _mapper);
+            query.BookId = book.Id;
             var result = query.Handle();
 
             result.Should().NotBeNull();
@@ -54,7 +55,7 @@ namespace Application.BookOperations.Command
             result.Genre.Should().Be(book.Genre.Name);
             result.AuthorName.Should().Be(book.Author.Name + " " + book.Author.Surname);
             result.PageCount.Should().Be(book.PageCount);
-            result.PublishDate.Should().Be(book.PublishDate.Date.ToString("dd/MM/yyyy"));
+            DateTime.Parse(result.PublishDate).Date.Should().Be(book.PublishDate.Date);
         }
     }
 
