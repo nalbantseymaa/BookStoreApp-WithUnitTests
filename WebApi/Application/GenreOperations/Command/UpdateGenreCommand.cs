@@ -1,18 +1,16 @@
 using System;
 using System.Linq;
-using AutoMapper;
 using WebApi.DBOperations;
-using WebApi.Entities;
 
 namespace WebApi.Application.GenreOperations.Command
 {
     public class UpdateGenreCommand
     {
-        public BookStoreDbContext _context { get; set; }
+        public IBookStoreDbContext _context { get; set; }
         public int GenreId { get; set; }
         public UpdateGenreModel Model { get; set; }
 
-        public UpdateGenreCommand(BookStoreDbContext context)
+        public UpdateGenreCommand(IBookStoreDbContext context)
         {
             _context = context;
         }

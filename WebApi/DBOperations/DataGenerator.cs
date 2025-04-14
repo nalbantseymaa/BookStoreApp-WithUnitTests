@@ -17,41 +17,60 @@ namespace WebApi.DBOperations
                 {
                     return;
                 }
+
+
                 context.Genres.AddRange(
-                    new Genre()
+                new Genre() { Name = "Personal Growth" },
+                new Genre() { Name = "Science Fiction" },
+                new Genre() { Name = "Romance" },
+                new Genre() { Name = "Software Development" }
+ );
+
+                context.Authors.AddRange(
+                    new Author()
                     {
-                        Name = "Personal Growth"
+                        Name = "Şeyma",
+                        Surname = "Nalbant",
+                        Birthday = new DateTime(2002, 07, 12)
                     },
-                    new Genre()
+                    new Author()
                     {
-                        Name = "Science Fiction"
+                        Name = "George",
+                        Surname = "Orwell",
+                        Birthday = new DateTime(1903, 06, 25)
                     },
-                    new Genre()
+                    new Author()
                     {
-                        Name = "Romance"
+                        Name = "Jane",
+                        Surname = "Austen",
+                        Birthday = new DateTime(1775, 12, 16)
                     }
                 );
+
                 context.Books.AddRange(
                     new Book()
                     {
-                        Title = "Lean Startup",
-                        GenreId = 1,
-                        PageCount = 200,
-                        PublishDate = new DateTime(2001, 06, 12)
+                        Title = ".NET Core ile Web API Geliştirme",
+                        GenreId = 4,
+                        PageCount = 320,
+                        PublishDate = new DateTime(2023, 11, 15),
+                        AuthorId = 1
                     },
                     new Book()
                     {
-                        Title = "Herland",
+                        Title = "1984",
                         GenreId = 2,
-                        PageCount = 250,
-                        PublishDate = new DateTime(2010, 05, 23)
+                        PageCount = 328,
+                        PublishDate = new DateTime(1949, 06, 08),
+                        AuthorId = 2
                     },
                     new Book()
                     {
-                        Title = "Dune",
-                        GenreId = 2,
-                        PageCount = 540,
-                        PublishDate = new DateTime(2002, 12, 21)
+                        Title = "Pride and Prejudice",
+                        GenreId = 3,
+                        PageCount = 432,
+                        PublishDate = new DateTime(1813, 01, 28),
+                        AuthorId = 3
                     }
                 );
                 context.SaveChanges();

@@ -1,10 +1,10 @@
 using AutoMapper;
 using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.BookOperations.Command;
 using WebApi.BookOperations.Query;
 using WebApi.BookOperations.Validation;
+using WebApi.Common;
 using WebApi.DBOperations;
 using static WebApi.BookOperations.Command.CreateBookCommand;
 
@@ -15,9 +15,10 @@ namespace WebApi.Controllers
     [Route("[controller]s")]
     public class BookController : ControllerBase
     {
-        private readonly BookStoreDbContext _context;
+        //private readonly BookStoreDbContext _context;
+        private readonly IBookStoreDbContext _context;
         private readonly IMapper _mapper;
-        public BookController(BookStoreDbContext context, IMapper mapper)
+        public BookController(IBookStoreDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -35,8 +36,6 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            BookDetailViewModel result = null;
-
             GetBookDetailQuery query = new GetBookDetailQuery(_context, _mapper);
             query.BookId = id;
 
@@ -44,7 +43,8 @@ namespace WebApi.Controllers
 
             validator.ValidateAndThrow(query);
 
-            return Ok(result);
+            var obj = query.Handle();
+            return Ok(obj);
         }
 
         [HttpPost]

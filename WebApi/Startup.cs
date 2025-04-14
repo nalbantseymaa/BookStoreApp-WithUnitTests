@@ -24,7 +24,7 @@ namespace WebApi
         //This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            // dependency injection (bağımlılık enjeksiyonu) sistemine bir tanımlamalar yapılıyor
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -34,7 +34,9 @@ namespace WebApi
             //  6-Startup.cs içerisinde ConfigureServices() içerisinde DbContext'in servis olarak eklenmesi
 
             services.AddDbContext<BookStoreDbContext>(options => options.UseInMemoryDatabase("BookStore"));
-
+            // BookStoreDbContext sınıfını, IBookStoreDbContext arayüzü üzerinden Scoped (istek bazlı) olarak inject eder.
+            // Yani bir sınıf IBookStoreDbContext isterse, DI konteyneri onun yerine BookStoreDbContext örneğini sağlar.
+            services.AddScoped<IBookStoreDbContext>(provider => provider.GetService<BookStoreDbContext>());
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             //ConsoleLogger sınıfı ILoggerService interface'ini implement ettiği için burada kullanılabilir

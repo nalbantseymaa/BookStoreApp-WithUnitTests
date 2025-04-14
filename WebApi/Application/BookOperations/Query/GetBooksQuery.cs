@@ -3,25 +3,30 @@ using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using WebApi.Common;
 
 namespace WebApi.BookOperations.Query
 {
     public class GetBooksQuery
     {
-        private readonly BookStoreDbContext _dbContext;
+        private readonly IBookStoreDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public GetBooksQuery(BookStoreDbContext dbContext, IMapper mapper)
+        public GetBooksQuery(IBookStoreDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
         }
 
-        public List<BooksViewModel> Handle()
+        public List<BookDetailViewModel> Handle()
         {
-            var bookList = _dbContext.Books.Include(x => x.Genre).OrderBy(x => x.Id).ToList();
+            var bookList = _dbContext.Books
+                .Include(x => x.Genre)
+                .Include(x => x.Author)
+                .OrderBy(x => x.Id)
+                .ToList();
 
-            List<BooksViewModel> vm = _mapper.Map<List<BooksViewModel>>(bookList);
+            List<BookDetailViewModel> vm = _mapper.Map<List<BookDetailViewModel>>(bookList);
 
             // new List<BooksViewModel>();
 
@@ -40,11 +45,5 @@ namespace WebApi.BookOperations.Query
         }
     }
 
-    public class BooksViewModel
-    {
-        public string Title { get; set; }
-        public string Genre { get; set; }
-        public int PageCount { get; set; }
-        public string PublishDate { get; set; }
-    }
+
 }
