@@ -24,7 +24,6 @@ namespace Tests.WebApi.UnitTests.Application.BookOperations.Command
             FluentActions.Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>().And.Message.Should().Be("Güncellenecek kitap bulunamadı.");
         }
 
-
         [Fact]
         public void WhenAuthorIdIsNotFound_InvalidOperationException_ShouldBeThrow()
         {

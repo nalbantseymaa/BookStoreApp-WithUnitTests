@@ -21,9 +21,8 @@ namespace WebApi.Application.GenreOperations.Command
             if (genre is null)
                 throw new InvalidOperationException("Kitap Türü Bulunmadı!");
 
-
-            if (_context.Genres.Any(x => x.Name.ToLower() == Model.Name.ToLower() && x.Id != GenreId))
-                throw new InvalidOperationException("Bu isimde başka bir kitap türü var!");
+            if (_context.Genres.Any(x => x.Name.ToLower() == Model.Name.ToLower() && x.Id == GenreId))
+                throw new InvalidOperationException("Bu isimde kitap türü zaten mevcut !");
 
             genre.Name = string.IsNullOrEmpty(Model.Name.Trim()) ? genre.Name : Model.Name;
 

@@ -15,12 +15,12 @@ namespace Application.BookOperations.Command
     //Test sınıfına dışarıdan hazır ortam sağlar. 
     // EN: This class tests the CreateBookCommand by simulating real use cases.
 
-    public class CreateBookCommandTests : IClassFixture<CommonTestFixture>
+    public class CreateGenreCommandTests : IClassFixture<CommonTestFixture>
     {
         private readonly BookStoreDbContext _context;
         private readonly IMapper _mapper;
 
-        public CreateBookCommandTests(CommonTestFixture testFixture)
+        public CreateGenreCommandTests(CommonTestFixture testFixture)
         {
             _context = testFixture.Context;
             _mapper = testFixture.Mapper;

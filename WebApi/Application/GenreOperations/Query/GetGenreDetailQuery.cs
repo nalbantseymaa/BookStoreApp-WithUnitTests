@@ -23,7 +23,7 @@ namespace WebApi.Application.GenreOperations.Query
 
             if (genre is null)
             {
-                throw new InvalidOperationException("Kitap türü bulunmadı!");
+                throw new InvalidOperationException("Aradığınız kitap türü bulunamadı");
             }
             return _mapper.Map<GenreDetailViewModel>(genre);
         }

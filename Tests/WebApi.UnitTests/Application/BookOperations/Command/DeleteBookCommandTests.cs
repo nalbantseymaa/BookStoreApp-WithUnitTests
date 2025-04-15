@@ -7,11 +7,11 @@ namespace Tests.WebApi.UnitTests.Application.BookOperations.Command
     using global::WebApi.BookOperations.Command;
     using global::WebApi.Entities;
 
-    public class DeleteBookCommandTests : IClassFixture<CommonTestFixture>
+    public class DeleteGenreCommandTests : IClassFixture<CommonTestFixture>
     {
         private readonly BookStoreDbContext _context;
 
-        public DeleteBookCommandTests(CommonTestFixture testFixture)
+        public DeleteGenreCommandTests(CommonTestFixture testFixture)
         {
             _context = testFixture.Context;
         }

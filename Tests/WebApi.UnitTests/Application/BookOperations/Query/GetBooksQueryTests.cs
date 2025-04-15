@@ -8,12 +8,12 @@ namespace Application.BookOperations.Command
     using WebApi.BookOperations.Query;
     using WebApi.Entities;
 
-    public class GetBooksQueryTests : IClassFixture<CommonTestFixture>
+    public class GetGenresQueryTests : IClassFixture<CommonTestFixture>
     {
         private readonly BookStoreDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetBooksQueryTests(CommonTestFixture testFixture)
+        public GetGenresQueryTests(CommonTestFixture testFixture)
         {
             _context = testFixture.Context;
             _mapper = testFixture.Mapper;

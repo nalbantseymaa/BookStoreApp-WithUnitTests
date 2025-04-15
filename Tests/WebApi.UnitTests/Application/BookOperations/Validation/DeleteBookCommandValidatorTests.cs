@@ -6,10 +6,10 @@ using WebApi.DBOperations;
 
 namespace Application.BookOperations.Validation
 {
-    public class DeleteBookCommandTestsValidator : IClassFixture<CommonTestFixture>
+    public class GetBookDetailQueryTestsValidator : IClassFixture<CommonTestFixture>
     {
         private readonly BookStoreDbContext _context;
-        public DeleteBookCommandTestsValidator(CommonTestFixture testFixture)
+        public GetBookDetailQueryTestsValidator(CommonTestFixture testFixture)
         {
             _context = testFixture.Context;
         }

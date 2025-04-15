@@ -12,13 +12,18 @@ namespace WebApi.BookOperations.Query
         public int BookId { get; set; }
         private readonly IBookStoreDbContext _dbContext;
         private readonly IMapper _mapper;
-
+        private object value;
 
         public GetBookDetailQuery(IBookStoreDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
 
+        }
+
+        public GetBookDetailQuery(object value)
+        {
+            this.value = value;
         }
 
         public BookDetailViewModel Handle()

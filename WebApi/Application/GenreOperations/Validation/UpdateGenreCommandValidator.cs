@@ -8,7 +8,16 @@ namespace WebApi.GenreOperations.Validation
     {
         public UpdateGenreCommandValidator()
         {
-            RuleFor(command => command.Model.Name).MinimumLength(4).When(x => x.Model.Name.Trim() != string.Empty);
+            RuleFor(command => command.GenreId).GreaterThan(0).WithMessage("Kitap Türü Id'si 0'dan büyük olmalıdır.");
+            RuleFor(command => command.Model.Name)
+             .NotEmpty().WithMessage("Genre adı boş olamaz.")
+             .Must(name => !string.IsNullOrWhiteSpace(name))
+                 .WithMessage("Genre adı sadece boşluklardan oluşamaz.")
+             .MinimumLength(4)
+                 .WithMessage("Genre adı en az 4 karakter olmalıdır.");
+
+
+
         }
     }
 }
