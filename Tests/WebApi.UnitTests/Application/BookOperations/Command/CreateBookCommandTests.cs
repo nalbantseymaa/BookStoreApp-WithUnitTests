@@ -108,7 +108,7 @@ namespace Application.BookOperations.Command
             }; // Geçersiz yazar ID'si 
 
             // Act & Assert – Hata fırlatılıp fırlatılmadığı kontrol edilir
-            // “At whatever point I want the code to explode, I don’t want it to get stuck before.” “Oh, there’s no author — so BOOM! I throw an InvalidOperationException.”
+            // “At whatever point I want the code to explode, I don’t want it to get stuck before.” “Oh, there’s no author — so BOM! I throw an InvalidOperationException.”
             FluentActions.Invoking(() => command.Handle())
                          .Should()
                          .Throw<InvalidOperationException>()
