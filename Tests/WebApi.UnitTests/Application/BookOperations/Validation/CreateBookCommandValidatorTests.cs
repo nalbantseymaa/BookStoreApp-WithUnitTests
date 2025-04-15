@@ -1,4 +1,4 @@
-namespace Application.BookOperations.Command
+namespace Application.BookOperations.Validation
 {
     using FluentAssertions;
     using Xunit;

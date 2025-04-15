@@ -45,12 +45,10 @@ namespace WebApi.BookOperations.Query
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime Birthday { get; set; }
 
         // Kullanıcıya yazar bilgileriyle birlikte kitaplarını da göstermek istiyoruz.
         // Bu yüzden kitaplar Include ile veritabanından çekilecek ve bu liste BookDetailViewModel'e maplenecek.
         public List<BookViewModel> Books { get; set; }
-
-
     }
 }

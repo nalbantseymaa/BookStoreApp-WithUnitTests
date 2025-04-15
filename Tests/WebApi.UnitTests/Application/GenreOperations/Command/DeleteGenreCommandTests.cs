@@ -1,4 +1,4 @@
-namespace Tests.WebApi.UnitTests.Application.GenreOperations.Command
+namespace Application.GenreOperations.Command
 {
     using FluentAssertions;
     using TestSetup;

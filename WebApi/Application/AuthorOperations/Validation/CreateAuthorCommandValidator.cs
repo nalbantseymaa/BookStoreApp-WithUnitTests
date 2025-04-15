@@ -11,7 +11,7 @@ namespace WebApi.BookOperations.Validation
         {
             RuleFor(command => command.Model.Name).NotEmpty().MinimumLength(2);
             RuleFor(command => command.Model.Surname).NotEmpty().MinimumLength(2);
-            RuleFor(command => command.Model.BirthDate.Date).NotEmpty().LessThan(DateTime.Now.Date);
+            RuleFor(command => command.Model.Birthday.Date).NotEmpty().LessThan(DateTime.Now.Date);
         }
     }
 }

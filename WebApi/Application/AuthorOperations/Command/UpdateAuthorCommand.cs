@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
-using AutoMapper;
 using WebApi.DBOperations;
-using WebApi.Entities;
 
 namespace WebApi.Application.GenreOperations.Command
 {
@@ -17,6 +15,11 @@ namespace WebApi.Application.GenreOperations.Command
             _context = context;
         }
 
+        public UpdateAuthorCommand(BookStoreDbContext context)
+        {
+            _context = context;
+        }
+
         public void Handle()
         {
             var author = _context.Authors.SingleOrDefault(x => x.Id == AuthorId);
@@ -24,7 +27,7 @@ namespace WebApi.Application.GenreOperations.Command
                 throw new InvalidOperationException("Yazar Bulunamdı!");
 
             if (_context.Authors.Any(x => x.Name.ToLower() == Model.Name.ToLower() && x.Surname.ToLower() == Model.Surname.ToLower()))
-                throw new InvalidOperationException("Bu isimde başka bir kitap türü var!");
+                throw new InvalidOperationException("Bu isimde yazar zaten mevcut!");
 
             author.Name = string.IsNullOrWhiteSpace(Model.Name) ? author.Name : Model.Name;
             author.Surname = string.IsNullOrWhiteSpace(Model.Surname) ? author.Surname : Model.Surname;

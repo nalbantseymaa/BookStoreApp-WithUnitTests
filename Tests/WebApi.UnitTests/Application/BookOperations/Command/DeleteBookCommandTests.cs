@@ -1,4 +1,4 @@
-namespace Tests.WebApi.UnitTests.Application.BookOperations.Command
+namespace Application.BookOperations.Command
 {
     using FluentAssertions;
     using TestSetup;

@@ -1,4 +1,4 @@
-namespace Application.BookOperations.Command
+namespace Application.BookOperations.Query
 {
     using FluentAssertions;
     using Xunit;

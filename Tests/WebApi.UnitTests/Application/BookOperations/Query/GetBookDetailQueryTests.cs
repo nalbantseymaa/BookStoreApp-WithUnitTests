@@ -1,4 +1,4 @@
-namespace Application.BookOperations.Command
+namespace Application.BookOperations.Query
 {
     using FluentAssertions;
     using Xunit;
@@ -9,12 +9,12 @@ namespace Application.BookOperations.Command
     using WebApi.Entities;
     using WebApi.Common;
 
-    public class GetGenreDetailQueryTests : IClassFixture<CommonTestFixture>
+    public class GetBookDetailQueryTests : IClassFixture<CommonTestFixture>
     {
         private readonly BookStoreDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetGenreDetailQueryTests(CommonTestFixture testFixture)
+        public GetBookDetailQueryTests(CommonTestFixture testFixture)
         {
             _context = testFixture.Context;
             _mapper = testFixture.Mapper;

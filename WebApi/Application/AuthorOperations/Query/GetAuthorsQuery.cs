@@ -37,7 +37,7 @@ namespace WebApi.Application.GenreOperations.Query
         {
             public string Name { get; set; }
             public string Surname { get; set; }
-            public DateTime BirthDate { get; set; }
+            public DateTime Birthday { get; set; }
             public List<BookViewModel> Books { get; set; }
 
         }

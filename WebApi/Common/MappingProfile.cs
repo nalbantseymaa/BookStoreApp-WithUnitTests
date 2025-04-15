@@ -31,9 +31,7 @@ namespace WebApi.Common
                 .ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.Books));
 
             CreateMap<Author, AuthorDetailViewModel>()
-                .ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.Books));
-
-
+          .ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.Books));
 
             // CreateMap<Book, BooksViewModel>()
             //     .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name))
