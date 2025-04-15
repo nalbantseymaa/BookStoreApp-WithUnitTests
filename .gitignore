@@ -5,6 +5,10 @@ obj/
 *.suo
 *.vs
 .vscode/
+.idea/
+*.ide
+*.pidb
+.vsconfig
 
 # Paket yönetimi
 node_modules/
@@ -21,20 +25,55 @@ npm-debug.log*
 # Sistem dosyaları
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
 # Geliştirme araçları
 *.swp
 *.tmp
+*.bak
+*.orig
 
 # Publish çıktıları
 publish/
+out/
 
 # Yapılandırma dosyaları
 appsettings.json
 appsettings.*.json
+secrets.json
+local.settings.json
 
-# .NET Build Araçları
+# Rider kullanıcıları için
 .idea/
-*.ide
-*.pidb
-.vsconfig
+*.sln.iml
+
+# Test çıktıları
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# NCrunch
+*.ncrunch*
+*.nunit.xml
+
+# SonarQube
+.sonar/
+.nuget/
+
+# JetBrains Rider ve ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+# Git secrets veya tokenlar
+*.pfx
+*.key
+*.pem
+*.crt
+
+# Docker (opsiyonel)
+*.tar
+docker-compose.override.yml
+.env
+.env.*
